@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: testnumbers
+  labels:
+    name: testnumbers
+spec:
+  volumes:
+    - name: logs
+      emptyDir: {}
+  containers:
+  - name: count
+    volumeMounts:
+      - mountPath: /var/www
+        name: logs
+    image: busybox
+    args:
+      - "/bin/sh"
+      - "-c"
+      - "i=0; while true; do echo $i >> /var/www/log.log; i=$((i+1)); sleep 10; done"
+  - name: sidecar
+    volumeMounts:
+      - mountPath: /var/www
+        name: logs
+    image: busybox
+    args:
+    - "/bin/sh"
+    - "-c"
+    - "tail -f /var/www/log.log"

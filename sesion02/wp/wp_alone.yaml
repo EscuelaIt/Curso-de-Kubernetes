@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2021-04-07T17:03:25Z"
+  labels:
+    run: wp
+  name: wp
+  namespace: default
+spec:
+  containers:
+  - env:
+    - name: WORDPRESS_DB_HOST
+      value: mysql
+    - name: WORDPRESS_DB_NAME
+      value: lcwp
+    - name: WORDPRESS_DB_USER
+      value: eiximenis
+    - name: WORDPRESS_DB_PASSWORD
+      value: Pa+a+a
+    image: wordpress:php7.2
+    imagePullPolicy: IfNotPresent
+    name: wp
+    ports:
+    - containerPort: 80
+      protocol: TCP

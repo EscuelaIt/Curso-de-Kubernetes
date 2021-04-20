@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test
+  labels:
+    name: test
+spec:
+  volumes:
+  - name: shared
+    emptyDir: {}
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+      - containerPort: 80
+    volumeMounts:
+      - mountPath: /edu
+        name: shared
+  - name: bb
+    image: busybox
+    volumeMounts:
+      - mountPath: /escuelait
+        name: shared
+    command:
+      - "/bin/sh"
+      - "-c"
+      - "tail -f /dev/null"
+

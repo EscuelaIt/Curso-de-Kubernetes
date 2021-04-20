@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hellors
+  labels:
+    creado-por: edu
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      run: helloworld
+  template:
+    metadata:
+      labels:
+        run: helloworld
+    spec:
+      containers:
+      - image: eiximenis/go-hello-world
+        imagePullPolicy: Always
+        name: hello
+        env:
+          - name: test
+            value: 'foo'
+        ports:
+        - containerPort: 80
+          protocol: TCP
+

@@ -1,0 +1,7 @@
+{
+    "debug": true,
+    "level": {
+        "status": "verbose",
+        "retries": 10
+    }
+}

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: hellors
+  labels:
+    creado-por: edu
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      run: helloworld
+  template:
+    metadata:
+      labels:
+        run: helloworld
+    spec:
+      containers:
+      - image: eiximenis/go-hello-world
+        imagePullPolicy: Always
+        name: hello
+        ports:
+        - containerPort: 80
+          protocol: TCP
+

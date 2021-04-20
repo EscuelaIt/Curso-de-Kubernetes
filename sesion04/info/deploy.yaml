@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: info
+  labels:
+    creado-por: edu
+    updated: 07_42PM_02
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      run: helloworld
+  template:
+    metadata:
+      labels:
+        run: helloworld
+        updated: 07_42PM_02
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: configjson
+        - name: config2
+          configMap:
+            name: myapp
+      containers:
+      - image: eiximenis/showinfo:v1
+        volumeMounts:
+          - mountPath: /myapp/cfg
+            name: config
+          - mountPath: /myapp/cfg2
+            name: config2
+        imagePullPolicy: Always
+        name: hello
+        env:
+          - name: test
+            value: 'foo'
+          - name: name
+            valueFrom:
+              configMapKeyRef:
+                key: nombre
+                name: myapp
+          - name: password
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: mysecret
+        envFrom:
+          - configMapRef:
+              name: myapp
+        ports:
+        - containerPort: 80
+          protocol: TCP
+

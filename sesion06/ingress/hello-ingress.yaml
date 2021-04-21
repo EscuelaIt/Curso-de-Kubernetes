@@ -1,0 +1,20 @@
+apiVersion:  extensions/v1beta1
+kind: Ingress
+metadata:
+  name: helloingress
+  labels:
+      name: helloingress
+spec:
+  rules:
+  - host: demoescuelait.northeurope.cloudapp.azure.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/api"
+        backend:
+          serviceName: hellors
+          servicePort: http
+  tls:
+    - hosts:
+      - demoescuelait.northeurope.cloudapp.azure.com
+      secretName: nombre-del-secreto
